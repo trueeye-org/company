@@ -391,7 +391,7 @@ function App() {
                     </svg>
                     <div>
                       <h4 className="text-blue-400 font-semibold">Phone</h4>
-                      <p className="text-gray-300">+44 7411 123456</p>
+                      <p className="text-gray-300">+1 (323) 455-4599</p>
                     </div>
                   </div>
                 </div>
