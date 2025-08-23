@@ -1,5 +1,6 @@
 import { FaWindows } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { useForm } from "@formspree/react";
 import logo from "./assets/logo.png";
 import banner from "./assets/cv.jpg";
 import screen1 from "./assets/screenshot1.png";
@@ -78,6 +79,8 @@ function App() {
     message: "",
   });
 
+  const [formState, handleFormSubmit] = useForm("xyzprrkg");
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -92,6 +95,16 @@ function App() {
     return () => clearInterval(reviewInterval);
   }, [reviews.length]);
 
+  useEffect(() => {
+    if (formState.succeeded) {
+      setContactFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    }
+  }, [formState.succeeded]);
+
   const toggleReadMore = (index: number) => {
     setExpandedPostIndex(expandedPostIndex === index ? null : index);
   };
@@ -104,18 +117,6 @@ function App() {
       ...prev,
       [name]: value,
     }));
-  };
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", contactFormData);
-    alert("Thank you for your message! We'll get back to you soon.");
-    setContactFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
   };
 
   return (
@@ -381,7 +382,7 @@ function App() {
           <div className="flex flex-col md:flex-row w-full gap-12">
             <div className="w-full md:w-1/2">
               <form
-                onSubmit={handleContactSubmit}
+                onSubmit={handleFormSubmit}
                 className="bg-gray-800 p-8 rounded-lg shadow-lg"
               >
                 <h3 className="text-white text-xl font-bold mb-6">
@@ -431,10 +432,21 @@ function App() {
                 </div>
                 <button
                   type="submit"
+                  disabled={formState.submitting}
                   className="bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-bold px-6 py-3 rounded-md w-full"
                 >
-                  Send Message
+                  {formState.submitting ? "Sending..." : "Send Message"}
                 </button>
+                {formState.succeeded && (
+                  <p className="text-green-400 mt-4 text-center">
+                    Thank you for your message! We'll get back to you soon.
+                  </p>
+                )}
+                {formState?.errors && Object.keys(formState.errors).length > 0 && (
+                  <p className="text-red-400 mt-4 text-center">
+                    There was an error sending your message. Please try again.
+                  </p>
+                )}
               </form>
             </div>
             <div className="w-full md:w-1/2 flex flex-col justify-center">
