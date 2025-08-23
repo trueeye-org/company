@@ -18,19 +18,22 @@ function App() {
     {
       name: "John Doe",
       role: "HR Manager",
-      comment: "TrueEye has revolutionized our hiring process. The CV analysis is spot on!",
+      comment:
+        "TrueEye has revolutionized our hiring process. The CV analysis is spot on!",
       rating: 5,
     },
     {
       name: "Sarah Johnson",
       role: "Tech Recruiter",
-      comment: "The GitHub profile analysis saves me hours of manual review. Highly recommended.",
+      comment:
+        "The GitHub profile analysis saves me hours of manual review. Highly recommended.",
       rating: 5,
     },
     {
       name: "Michael Chen",
       role: "CTO",
-      comment: "Great tool for technical hiring. The skill-role consistency analysis is particularly useful.",
+      comment:
+        "Great tool for technical hiring. The skill-role consistency analysis is particularly useful.",
       rating: 4,
     },
   ];
@@ -38,29 +41,37 @@ function App() {
   const blogPosts = [
     {
       title: "How AI is Transforming CV Analysis",
-      excerpt: "Discover how artificial intelligence is revolutionizing the way recruiters analyze and evaluate candidate CVs.",
-      fullText: "Artificial intelligence is fundamentally changing how recruiters work with candidate CVs. Modern AI algorithms can now parse, analyze, and evaluate resumes with remarkable accuracy, identifying key skills, experiences, and potential red flags that human reviewers might miss. This technology not only saves countless hours of manual review but also helps eliminate unconscious bias in the initial screening process. As these systems continue to learn from hiring outcomes, they're becoming increasingly sophisticated at predicting candidate success.",
+      excerpt:
+        "Discover how artificial intelligence is revolutionizing the way recruiters analyze and evaluate candidate CVs.",
+      fullText:
+        "Artificial intelligence is fundamentally changing how recruiters work with candidate CVs. Modern AI algorithms can now parse, analyze, and evaluate resumes with remarkable accuracy, identifying key skills, experiences, and potential red flags that human reviewers might miss. This technology not only saves countless hours of manual review but also helps eliminate unconscious bias in the initial screening process. As these systems continue to learn from hiring outcomes, they're becoming increasingly sophisticated at predicting candidate success.",
       date: "May 15, 2023",
       image: screen1,
     },
     {
       title: "5 Key Metrics to Evaluate Developer Profiles",
-      excerpt: "Learn about the most important metrics to consider when reviewing a developer's GitHub profile and code samples.",
-      fullText: "When evaluating developer profiles, looking beyond the resume is essential. The most revealing metrics include: 1) Code quality and documentation practices, 2) Contribution frequency and consistency, 3) Project diversity and complexity, 4) Collaboration patterns with other developers, and 5) Problem-solving approaches visible in issue discussions. These indicators provide much deeper insight into a developer's actual capabilities than traditional resume points alone. By systematically analyzing these metrics, technical recruiters can make more informed decisions about candidate suitability.",
+      excerpt:
+        "Learn about the most important metrics to consider when reviewing a developer's GitHub profile and code samples.",
+      fullText:
+        "When evaluating developer profiles, looking beyond the resume is essential. The most revealing metrics include: 1) Code quality and documentation practices, 2) Contribution frequency and consistency, 3) Project diversity and complexity, 4) Collaboration patterns with other developers, and 5) Problem-solving approaches visible in issue discussions. These indicators provide much deeper insight into a developer's actual capabilities than traditional resume points alone. By systematically analyzing these metrics, technical recruiters can make more informed decisions about candidate suitability.",
       date: "June 3, 2023",
       image: screen2,
     },
     {
       title: "The Future of Technical Hiring",
-      excerpt: "Explore emerging trends in technical recruitment and how data-driven approaches are changing the industry.",
-      fullText: "Technical hiring is undergoing a profound transformation driven by data analytics and AI. Traditional interviews are increasingly supplemented or replaced by skills assessments, behavioral analysis, and predictive performance modeling. Companies at the forefront are building comprehensive candidate profiles that incorporate everything from code quality metrics to communication patterns and problem-solving approaches. As these methods mature, we're seeing higher retention rates and better performance outcomes. The most successful organizations are those that balance technological assessment with human judgment, creating hiring processes that are both efficient and deeply insightful.",
+      excerpt:
+        "Explore emerging trends in technical recruitment and how data-driven approaches are changing the industry.",
+      fullText:
+        "Technical hiring is undergoing a profound transformation driven by data analytics and AI. Traditional interviews are increasingly supplemented or replaced by skills assessments, behavioral analysis, and predictive performance modeling. Companies at the forefront are building comprehensive candidate profiles that incorporate everything from code quality metrics to communication patterns and problem-solving approaches. As these methods mature, we're seeing higher retention rates and better performance outcomes. The most successful organizations are those that balance technological assessment with human judgment, creating hiring processes that are both efficient and deeply insightful.",
       date: "July 22, 2023",
       image: screen3,
     },
   ];
 
   const [currentReview, setCurrentReview] = useState(0);
-  const [expandedPostIndex, setExpandedPostIndex] = useState<number | null>(null);
+  const [expandedPostIndex, setExpandedPostIndex] = useState<number | null>(
+    null
+  );
   const [contactFormData, setContactFormData] = useState({
     name: "",
     email: "",
@@ -85,11 +96,13 @@ function App() {
     setExpandedPostIndex(expandedPostIndex === index ? null : index);
   };
 
-  const handleContactInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleContactInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setContactFormData(prev => ({
+    setContactFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -101,7 +114,7 @@ function App() {
     setContactFormData({
       name: "",
       email: "",
-      message: ""
+      message: "",
     });
   };
 
@@ -114,7 +127,14 @@ function App() {
             <span className="text-white text-2xl font-bold">TrueEye</span>
           </div>
           <div className="flex items-center gap-2">
-            <button className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-blue-200 font-bold px-4 py-2 rounded-md flex items-center gap-2">
+            <button
+              onClick={() => {
+                window.open(
+                  "https://apps.microsoft.com/detail/9n0r6r27lm2g?hl=en-US&gl=US",
+                  "_blank"
+                );
+              }}
+              className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-blue-200 font-bold px-4 py-2 rounded-md flex items-center gap-2">
               <FaWindows />
               <span>Download for Free</span>
             </button>
@@ -142,7 +162,15 @@ function App() {
               - Encrypt and store data on local
             </p>
             <div className="flex items-center gap-2">
-              <button className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-blue-200 font-bold px-4 py-2 rounded-md flex items-center gap-2">
+              <button
+                onClick={() => {
+                  window.open(
+                    "https://apps.microsoft.com/detail/9n0r6r27lm2g?hl=en-US&gl=US",
+                    "_blank"
+                  );
+                }}
+                className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-blue-200 font-bold px-4 py-2 rounded-md flex items-center gap-2"
+              >
                 <FaWindows />
                 <span>Download for Free</span>
               </button>
@@ -197,7 +225,9 @@ function App() {
       </div>
       <div className="w-full h-[100vh] flex items-center justify-center bg-gray-950">
         <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center pt-8">
-          <h2 className="text-white text-3xl font-bold mb-12">What Our Users Say</h2>
+          <h2 className="text-white text-3xl font-bold mb-12">
+            What Our Users Say
+          </h2>
           <div className="relative w-full">
             <div className="flex flex-col items-center">
               <div className="relative w-full max-w-2xl h-[280px]">
@@ -216,7 +246,9 @@ function App() {
                           <svg
                             key={i}
                             className={`w-6 h-6 ${
-                              i < review.rating ? "text-yellow-500" : "text-gray-600"
+                              i < review.rating
+                                ? "text-yellow-500"
+                                : "text-gray-600"
                             }`}
                             fill="currentColor"
                             viewBox="0 0 20 20"
@@ -225,8 +257,12 @@ function App() {
                           </svg>
                         ))}
                       </div>
-                      <p className="text-gray-300 text-lg italic mb-6">"{review.comment}"</p>
-                      <h3 className="text-white text-xl font-bold">{review.name}</h3>
+                      <p className="text-gray-300 text-lg italic mb-6">
+                        "{review.comment}"
+                      </p>
+                      <h3 className="text-white text-xl font-bold">
+                        {review.name}
+                      </h3>
                       <p className="text-blue-400">{review.role}</p>
                     </div>
                   </div>
@@ -247,7 +283,9 @@ function App() {
             </div>
           </div>
           <div className="mt-16 text-center">
-            <h3 className="text-white text-xl font-bold mb-4">Share Your Experience</h3>
+            <h3 className="text-white text-xl font-bold mb-4">
+              Share Your Experience
+            </h3>
             <button className="bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-bold px-6 py-3 rounded-md">
               Submit Your Feedback
             </button>
@@ -256,45 +294,71 @@ function App() {
       </div>
       <div className="w-full min-h-[100vh] flex items-center justify-center bg-gray-950 py-16">
         <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center">
-          <h2 className="text-white text-3xl font-bold mb-12">Latest from Our Blog</h2>
+          <h2 className="text-white text-3xl font-bold mb-12">
+            Latest from Our Blog
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
             {blogPosts.map((post, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-blue-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-[1.02]"
               >
-                <img 
-                  src={post.image} 
-                  alt={post.title} 
+                <img
+                  src={post.image}
+                  alt={post.title}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
                   <p className="text-blue-400 text-sm mb-2">{post.date}</p>
-                  <h3 className="text-white text-xl font-bold mb-3">{post.title}</h3>
+                  <h3 className="text-white text-xl font-bold mb-3">
+                    {post.title}
+                  </h3>
                   <div className="text-gray-300 mb-4">
                     {expandedPostIndex === index ? (
                       <>
                         <p>{post.fullText}</p>
-                        <button 
+                        <button
                           onClick={() => toggleReadMore(index)}
                           className="text-blue-400 hover:text-blue-300 font-semibold mt-4 transition-colors duration-300 flex items-center"
                         >
                           Show Less
-                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                          <svg
+                            className="w-4 h-4 ml-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 15l7-7 7 7"
+                            />
                           </svg>
                         </button>
                       </>
                     ) : (
                       <>
                         <p>{post.excerpt}</p>
-                        <button 
+                        <button
                           onClick={() => toggleReadMore(index)}
                           className="text-blue-400 hover:text-blue-300 font-semibold mt-2 transition-colors duration-300 flex items-center"
                         >
                           Read More
-                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          <svg
+                            className="w-4 h-4 ml-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
                           </svg>
                         </button>
                       </>
@@ -316,14 +380,21 @@ function App() {
           <h2 className="text-white text-3xl font-bold mb-12">Contact Us</h2>
           <div className="flex flex-col md:flex-row w-full gap-12">
             <div className="w-full md:w-1/2">
-              <form onSubmit={handleContactSubmit} className="bg-gray-800 p-8 rounded-lg shadow-lg">
-                <h3 className="text-white text-xl font-bold mb-6">Send Us a Message</h3>
+              <form
+                onSubmit={handleContactSubmit}
+                className="bg-gray-800 p-8 rounded-lg shadow-lg"
+              >
+                <h3 className="text-white text-xl font-bold mb-6">
+                  Send Us a Message
+                </h3>
                 <div className="mb-4">
-                  <label htmlFor="name" className="block text-gray-300 mb-2">Your Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
+                  <label htmlFor="name" className="block text-gray-300 mb-2">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
                     value={contactFormData.name}
                     onChange={handleContactInputChange}
                     className="w-full bg-gray-700 text-white border border-gray-600 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
@@ -331,11 +402,13 @@ function App() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="email" className="block text-gray-300 mb-2">Your Email</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
+                  <label htmlFor="email" className="block text-gray-300 mb-2">
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
                     value={contactFormData.email}
                     onChange={handleContactInputChange}
                     className="w-full bg-gray-700 text-white border border-gray-600 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
@@ -343,10 +416,12 @@ function App() {
                   />
                 </div>
                 <div className="mb-6">
-                  <label htmlFor="message" className="block text-gray-300 mb-2">Your Message</label>
-                  <textarea 
-                    id="message" 
-                    name="message" 
+                  <label htmlFor="message" className="block text-gray-300 mb-2">
+                    Your Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
                     value={contactFormData.message}
                     onChange={handleContactInputChange}
                     rows={5}
@@ -354,7 +429,7 @@ function App() {
                     required
                   ></textarea>
                 </div>
-                <button 
+                <button
                   type="submit"
                   className="bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-bold px-6 py-3 rounded-md w-full"
                 >
@@ -364,21 +439,52 @@ function App() {
             </div>
             <div className="w-full md:w-1/2 flex flex-col justify-center">
               <div className="bg-gray-800 p-8 rounded-lg shadow-lg mb-8">
-                <h3 className="text-white text-xl font-bold mb-6">Contact Information</h3>
+                <h3 className="text-white text-xl font-bold mb-6">
+                  Contact Information
+                </h3>
                 <div className="flex flex-col gap-4">
                   <div className="flex items-start gap-4">
-                    <svg className="w-6 h-6 text-blue-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <svg
+                      className="w-6 h-6 text-blue-400 mt-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
                     </svg>
                     <div>
                       <h4 className="text-blue-400 font-semibold">Address</h4>
-                      <p className="text-gray-300">123 Innovation Street, Tech Valley, CA 94043</p>
+                      <p className="text-gray-300">
+                        123 Innovation Street, Tech Valley, CA 94043
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <svg className="w-6 h-6 text-blue-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <svg
+                      className="w-6 h-6 text-blue-400 mt-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
                     </svg>
                     <div>
                       <h4 className="text-blue-400 font-semibold">Email</h4>
@@ -386,8 +492,19 @@ function App() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <svg className="w-6 h-6 text-blue-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    <svg
+                      className="w-6 h-6 text-blue-400 mt-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
                     </svg>
                     <div>
                       <h4 className="text-blue-400 font-semibold">Phone</h4>
@@ -397,7 +514,9 @@ function App() {
                 </div>
               </div>
               <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
-                <h3 className="text-white text-xl font-bold mb-6">Business Hours</h3>
+                <h3 className="text-white text-xl font-bold mb-6">
+                  Business Hours
+                </h3>
                 <div className="flex justify-between text-gray-300 mb-2">
                   <span>Monday - Friday:</span>
                   <span>9:00 AM - 6:00 PM</span>
