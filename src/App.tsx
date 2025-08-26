@@ -6,6 +6,9 @@ import banner from "./assets/cv.jpg";
 import screen1 from "./assets/screenshot1.png";
 import screen2 from "./assets/screenshot2.png";
 import screen3 from "./assets/screenshot3.png";
+import review1 from "./assets/review1.jpg";
+import review2 from "./assets/review2.jpg";
+import review3 from "./assets/review3.jpg";
 
 function App() {
   const contactSectionRef = useRef<HTMLDivElement>(null);
@@ -22,25 +25,28 @@ function App() {
 
   const reviews = [
     {
-      name: "John Doe",
-      role: "HR Manager",
+      name: "Tastiana Larkina",
+      role: "JTI",
       comment:
         "TrueEye has revolutionized our hiring process. The CV analysis is spot on!",
       rating: 5,
+      image: review1,
     },
     {
-      name: "Sarah Johnson",
-      role: "Tech Recruiter",
+      name: "Willem van Riet",
+      role: "Toco AG",
       comment:
         "The GitHub profile analysis saves me hours of manual review. Highly recommended.",
       rating: 5,
+      image: review2,
     },
     {
-      name: "Michael Chen",
-      role: "CTO",
+      name: "Oktawia Kata",
+      role: "Technis",
       comment:
         "Great tool for technical hiring. The skill-role consistency analysis is particularly useful.",
       rating: 4,
+      image: review3,
     },
   ];
 
@@ -51,7 +57,7 @@ function App() {
         "Discover how artificial intelligence is revolutionizing the way recruiters analyze and evaluate candidate CVs.",
       fullText:
         "Artificial intelligence is fundamentally changing how recruiters work with candidate CVs. Modern AI algorithms can now parse, analyze, and evaluate resumes with remarkable accuracy, identifying key skills, experiences, and potential red flags that human reviewers might miss. This technology not only saves countless hours of manual review but also helps eliminate unconscious bias in the initial screening process. As these systems continue to learn from hiring outcomes, they're becoming increasingly sophisticated at predicting candidate success.",
-      date: "May 15, 2023",
+      date: "May 15, 2025",
       image: screen1,
     },
     {
@@ -59,8 +65,8 @@ function App() {
       excerpt:
         "Learn about the most important metrics to consider when reviewing a developer's GitHub profile and code samples.",
       fullText:
-        "When evaluating developer profiles, looking beyond the resume is essential. The most revealing metrics include: 1) Code quality and documentation practices, 2) Contribution frequency and consistency, 3) Project diversity and complexity, 4) Collaboration patterns with other developers, and 5) Problem-solving approaches visible in issue discussions. These indicators provide much deeper insight into a developer's actual capabilities than traditional resume points alone. By systematically analyzing these metrics, technical recruiters can make more informed decisions about candidate suitability.",
-      date: "June 3, 2023",
+        "When evaluating developer profiles, looking beyond the resume is essential.<br /> The most revealing metrics include:<br /> 1) Code quality and documentation practices<br /> 2) Contribution frequency and consistency<br /> 3) Project diversity and complexity<br /> 4) Collaboration patterns with other developers and <br /> 5) Problem-solving approaches visible in issue discussions.<br /> These indicators provide much deeper insight into a developer's actual capabilities than traditional resume points alone. By systematically analyzing these metrics, technical recruiters can make more informed decisions about candidate suitability.",
+      date: "June 3, 2025",
       image: screen2,
     },
     {
@@ -69,15 +75,15 @@ function App() {
         "Explore emerging trends in technical recruitment and how data-driven approaches are changing the industry.",
       fullText:
         "Technical hiring is undergoing a profound transformation driven by data analytics and AI. Traditional interviews are increasingly supplemented or replaced by skills assessments, behavioral analysis, and predictive performance modeling. Companies at the forefront are building comprehensive candidate profiles that incorporate everything from code quality metrics to communication patterns and problem-solving approaches. As these methods mature, we're seeing higher retention rates and better performance outcomes. The most successful organizations are those that balance technological assessment with human judgment, creating hiring processes that are both efficient and deeply insightful.",
-      date: "July 22, 2023",
+      date: "July 22, 2025",
       image: screen3,
     },
   ];
 
   const [currentReview, setCurrentReview] = useState(0);
-  const [expandedPostIndex, setExpandedPostIndex] = useState<number | null>(
-    null
-  );
+  const [selectedBlogPost, setSelectedBlogPost] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [contactFormData, setContactFormData] = useState({
     name: "",
     email: "",
@@ -109,9 +115,35 @@ function App() {
       });
     }
   }, [formState.succeeded]);
+  
+  // Handle modal animation states
+  useEffect(() => {
+    if (isModalOpen) {
+      // First mount the modal
+      document.body.style.overflow = 'hidden';
+      
+      // Then trigger the animation after a small delay
+      const timer = setTimeout(() => {
+        setIsModalVisible(true);
+      }, 10);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isModalOpen]);
 
-  const toggleReadMore = (index: number) => {
-    setExpandedPostIndex(expandedPostIndex === index ? null : index);
+  const openBlogModal = (index: number) => {
+    setSelectedBlogPost(index);
+    setIsModalOpen(true);
+  };
+  
+  const closeBlogModal = () => {
+    setIsModalVisible(false);
+    
+    // Wait for the animation to complete before unmounting
+    setTimeout(() => {
+      setIsModalOpen(false);
+      document.body.style.overflow = 'auto';
+    }, 300);
   };
 
   const handleContactInputChange = (
@@ -276,8 +308,8 @@ function App() {
                         "{review.comment}"
                       </p>
                       <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 mb-3 flex items-center justify-center text-black font-bold text-xl">
-                          {review.name.charAt(0)}
+                        <div className="w-24 h-24 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 mb-3 flex items-center justify-center text-black font-bold text-xl">
+                          <img src={review.image} className="w-full h-full object-cover rounded-full" />
                         </div>
                         <h3 className="text-white text-xl font-bold">
                           {review.name}
@@ -289,7 +321,7 @@ function App() {
                 ))}
               </div>
             </div>
-            <div className="flex justify-center gap-3 mt-12">
+            <div className="flex justify-center gap-3 mt-24">
               {reviews.map((_, index) => (
                 <button
                   key={index}
@@ -324,13 +356,14 @@ function App() {
             {blogPosts.map((post, index) => (
               <div
                 key={index}
-                className="backdrop-blur-sm bg-black/30 rounded-xl overflow-hidden shadow-2xl border border-amber-500/20 hover:border-amber-500/40 transition-all duration-500 transform hover:scale-[1.03] hover:shadow-amber-700/10"
+                className="backdrop-blur-sm bg-black/30 rounded-xl overflow-hidden shadow-2xl border border-amber-500/20 hover:border-amber-500/40 transition-all duration-500 transform hover:scale-[1.03] hover:shadow-amber-700/10 cursor-pointer group"
+                onClick={() => openBlogModal(index)}
               >
                 <div className="relative">
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-56 object-cover filter brightness-90"
+                    className="w-full h-56 object-cover filter brightness-90 group-hover:brightness-100 transition-all duration-500"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-24"></div>
                   <div className="absolute bottom-4 left-4 bg-amber-500/90 text-black text-xs font-bold py-1 px-3 rounded-full">
@@ -338,70 +371,98 @@ function App() {
                   </div>
                 </div>
                 <div className="p-8">
-                  <h3 className="text-white text-xl font-bold mb-4 leading-tight">
+                  <h3 className="text-white text-xl font-bold mb-4 leading-tight group-hover:text-amber-400 transition-colors duration-300">
                     {post.title}
                   </h3>
                   <div className="text-gray-300 mb-4">
-                    {expandedPostIndex === index ? (
-                      <>
-                        <p className="leading-relaxed">{post.fullText}</p>
-                        <button
-                          onClick={() => toggleReadMore(index)}
-                          className="text-amber-400 hover:text-amber-300 font-semibold mt-6 transition-colors duration-300 flex items-center"
-                        >
-                          Show Less
-                          <svg
-                            className="w-4 h-4 ml-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 15l7-7 7 7"
-                            />
-                          </svg>
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <p className="leading-relaxed">{post.excerpt}</p>
-                        <button
-                          onClick={() => toggleReadMore(index)}
-                          className="text-amber-400 hover:text-amber-300 font-semibold mt-4 transition-colors duration-300 flex items-center"
-                        >
-                          Read More
-                          <svg
-                            className="w-4 h-4 ml-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </svg>
-                        </button>
-                      </>
-                    )}
+                    <p className="leading-relaxed line-clamp-3">{post.excerpt}</p>
+                    <button
+                      className="text-amber-400 hover:text-amber-300 font-semibold mt-4 transition-colors duration-300 flex items-center"
+                    >
+                      Read More
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-16">
-            <button className="border border-amber-500/30 hover:border-amber-500/60 bg-black/40 hover:bg-black/60 transition-all duration-300 text-amber-400 font-bold px-8 py-3 rounded-md">
-              View All Articles
-            </button>
-          </div>
         </div>
+        
+        {/* Blog Post Modal */}
+        {isModalOpen && selectedBlogPost !== null && (
+          <div 
+            className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ease-out ${
+              isModalVisible ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: isModalVisible ? 'blur(8px)' : 'blur(0px)'
+            }}
+          >
+            <div 
+              className="absolute inset-0 bg-transparent" 
+              onClick={closeBlogModal}
+            ></div>
+            <div 
+              className={`relative bg-gradient-to-b from-gray-900 to-black w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl border border-amber-500/30 shadow-2xl z-50 transition-all duration-300 ease-out ${
+                isModalVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-8'
+              }`}
+            >
+              <div className="sticky top-0 z-10 flex justify-end p-4 bg-gradient-to-b from-black to-transparent">
+                <button 
+                  onClick={closeBlogModal}
+                  className="text-amber-500 hover:text-amber-400 transition-colors duration-300"
+                >
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="p-8 pt-0">
+                <div className="relative h-64 mb-8 overflow-hidden rounded-lg">
+                  <img 
+                    src={blogPosts[selectedBlogPost].image} 
+                    alt={blogPosts[selectedBlogPost].title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                    <span className="inline-block bg-amber-500/90 text-black text-sm font-bold py-1 px-3 rounded-full mb-3 max-w-min text-nowrap">
+                      {blogPosts[selectedBlogPost].date}
+                    </span>
+                    <h2 className="text-white text-3xl font-bold leading-tight">
+                      {blogPosts[selectedBlogPost].title}
+                    </h2>
+                  </div>
+                </div>
+                <div className="text-gray-200 leading-relaxed text-lg space-y-6">
+                  <div dangerouslySetInnerHTML={{ __html: blogPosts[selectedBlogPost].fullText }} />
+                </div>
+                <div className="mt-10 pt-6 border-t border-amber-500/20 flex justify-end">
+                  <button 
+                    onClick={closeBlogModal}
+                    className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 transition-all duration-300 text-black font-bold px-6 py-2 rounded-md shadow-lg shadow-amber-700/20"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div ref={contactSectionRef} className="w-full min-h-[100vh] flex items-center justify-center bg-gradient-to-b from-black via-gray-950 to-black pt-12">
         <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center">
