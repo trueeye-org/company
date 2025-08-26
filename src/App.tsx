@@ -1,5 +1,5 @@
 import { FaWindows } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "@formspree/react";
 import logo from "./assets/logo.png";
 import banner from "./assets/cv.jpg";
@@ -8,12 +8,17 @@ import screen2 from "./assets/screenshot2.png";
 import screen3 from "./assets/screenshot3.png";
 
 function App() {
+  const contactSectionRef = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
     { image: screen1, caption: "CV & Github Analysis" },
     { image: screen2, caption: "Comprehensive Report" },
     { image: screen3, caption: "Crypto Payment Integration" },
   ];
+  
+  const scrollToContact = () => {
+    contactSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const reviews = [
     {
@@ -120,12 +125,12 @@ function App() {
   };
 
   return (
-    <div className="relative w-full h-full bg-gray-950">
-      <div className="w-full h-12 bg-blue-700 fixed top-0 z-10 flex items-center justify-center">
+    <div className="relative w-full h-full bg-black">
+      <div className="w-full h-16 bg-gradient-to-r from-black via-gray-900 to-black fixed top-0 z-10 flex items-center justify-center border-b border-amber-500/30 backdrop-blur-sm">
         <div className="w-4/5 max-w-[1280px] flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="logo" className="w-10 h-10" />
-            <span className="text-white text-2xl font-bold">TrueEye</span>
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="logo" className="w-12 h-12 filter drop-shadow-lg" />
+            <span className="text-amber-400 text-2xl font-bold tracking-wider">TrueEye</span>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -135,34 +140,44 @@ function App() {
                   "_blank"
                 );
               }}
-              className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-blue-200 font-bold px-4 py-2 rounded-md flex items-center gap-2">
+              className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 transition-all duration-300 text-black font-bold px-6 py-2.5 rounded-md flex items-center gap-2 shadow-lg shadow-amber-700/20">
               <FaWindows />
               <span>Download for Free</span>
             </button>
           </div>
         </div>
       </div>
-      <div className="w-full h-[100vh] flex items-center justify-center">
-        <div className="w-4/5 max-w-[1280px] flex items-center justify-between gap-4">
-          <div className="flex flex-col gap-4">
-            <h1 className="text-white text-3xl font-bold">
-              The Best Way to Track CV Quality
+      <div className="w-full h-[100vh] flex items-center justify-center bg-gradient-to-b from-black via-gray-950 to-black pt-16">
+        <div className="w-4/5 max-w-[1280px] flex items-center justify-between gap-8">
+          <div className="flex flex-col gap-6">
+            <div className="mb-2">
+              <span className="text-amber-500 text-sm uppercase tracking-widest font-semibold">Premium Recruitment Tool</span>
+            </div>
+            <h1 className="text-white text-5xl font-bold leading-tight">
+              The <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Intelligent</span> Way to<br />Track CV Quality
             </h1>
-            <p className="text-gray-400 text-lg">
-              TrueEye is a tool that helps you track CV quality and support your
-              decision.
+            <p className="text-gray-300 text-lg font-light leading-relaxed mt-2">
+              TrueEye is a sophisticated tool that helps you assess CV quality and make data-driven recruitment decisions.
             </p>
-            <p className="text-gray-400 text-lg">
-              - Skill-Role consistency analysis
-            </p>
-            <p className="text-gray-400 text-lg">- Github profile analysis</p>
-            <p className="text-gray-400 text-lg">
-              - Usage based transparent pricing
-            </p>
-            <p className="text-gray-400 text-lg">
-              - Encrypt and store data on local
-            </p>
-            <div className="flex items-center gap-2">
+            <div className="grid grid-cols-2 gap-4 mt-4">
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                <p className="text-gray-300 text-lg">Skill-Role consistency analysis</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                <p className="text-gray-300 text-lg">Github profile analysis</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                <p className="text-gray-300 text-lg">Usage based transparent pricing</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                <p className="text-gray-300 text-lg">Encrypt and store data on local</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 mt-6">
               <button
                 onClick={() => {
                   window.open(
@@ -170,10 +185,15 @@ function App() {
                     "_blank"
                   );
                 }}
-                className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-blue-200 font-bold px-4 py-2 rounded-md flex items-center gap-2"
+                className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 transition-all duration-300 text-black font-bold px-8 py-3 rounded-md flex items-center gap-2 shadow-lg shadow-amber-700/20"
               >
                 <FaWindows />
                 <span>Download for Free</span>
+              </button>
+              <button 
+                onClick={scrollToContact}
+                className="border border-amber-500/30 hover:border-amber-500/60 bg-black/40 hover:bg-black/60 transition-all duration-300 text-amber-400 font-bold px-8 py-3 rounded-md">
+                Contact Us
               </button>
             </div>
           </div>
@@ -181,75 +201,69 @@ function App() {
             <img
               src={banner}
               alt="hero"
-              className="w-full h-full object-cover rounded-lg shadow-lg border-2 border-blue-500 hover:border-blue-400 transition-all duration-300 transform hover:scale-[1.02]"
+              className="w-full h-full object-cover rounded-lg shadow-2xl border border-amber-500/30 hover:border-amber-500/60 transition-all duration-500 transform hover:scale-[1.02] filter brightness-105 contrast-105"
             />
           </div>
         </div>
       </div>
-      <div className="w-full h-[100vh] flex items-start justify-center bg-gray-950">
-        <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center pt-8">
-          <h2 className="text-white text-3xl font-bold mb-8">Features</h2>
-          <div className="relative w-full h-[640px]">
+      <div className="w-full h-[100vh] flex items-start justify-center bg-gradient-to-b from-black via-gray-950 to-black">
+        <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center pt-24">
+          <div className="mb-2">
+            <span className="text-amber-500 text-sm uppercase tracking-widest font-semibold">Discover</span>
+          </div>
+          <h2 className="text-white text-4xl font-bold mb-12 text-center">Premium <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Features</span></h2>
+          <div className="relative w-full h-[640px] backdrop-blur-sm bg-black/20 p-8 rounded-xl border border-amber-500/20">
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
+                className={`absolute top-0 left-0 w-full h-full transition-all duration-1000 ${
                   index === currentSlide
-                    ? "opacity-100"
-                    : "opacity-0 pointer-events-none"
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-8 pointer-events-none"
                 }`}
               >
-                <img
-                  src={slide.image}
-                  alt={`screenshot ${index + 1}`}
-                  className="w-full h-full object-contain rounded-lg shadow-lg"
-                />
-                <p className="text-white font-bold text-lg text-center mt-4">
-                  {slide.caption}
-                </p>
+                <div className="flex flex-col h-full justify-center items-center p-8">
+                  <img
+                    src={slide.image}
+                    alt={`screenshot ${index + 1}`}
+                    className="w-full h-full object-contain rounded-lg shadow-2xl border border-amber-500/30"
+                  />
+                  <p className="text-white font-bold text-xl text-center mt-8 bg-black py-3 px-6 rounded-full border border-amber-500/20 backdrop-blur-sm shadow-lg">
+                    {slide.caption}
+                  </p>
+                </div>
               </div>
             ))}
-            <div className="absolute bottom-[-60px] left-0 right-0 flex justify-center gap-2">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full ${
-                    index === currentSlide ? "bg-blue-500" : "bg-gray-600"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </div>
-      <div className="w-full h-[100vh] flex items-center justify-center bg-gray-950">
-        <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center pt-8">
-          <h2 className="text-white text-3xl font-bold mb-12">
-            What Our Users Say
-          </h2>
+      <div className="w-full h-[100vh] flex items-center justify-center bg-gradient-to-b from-black via-gray-950 to-black">
+        <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center pt-12">
+          <div className="mb-2">
+            <span className="text-amber-500 text-sm uppercase tracking-widest font-semibold">Testimonials</span>
+          </div>
+          <h2 className="text-white text-4xl font-bold mb-16 text-center">What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Elite</span> Users Say</h2>
           <div className="relative w-full">
             <div className="flex flex-col items-center">
-              <div className="relative w-full max-w-2xl h-[280px]">
+              <div className="relative w-full max-w-2xl h-[320px]">
                 {reviews.map((review, index) => (
                   <div
                     key={index}
-                    className={`absolute top-0 left-0 w-full bg-gray-900 p-8 rounded-lg shadow-lg border border-blue-700 transition-all duration-700 ease-in-out ${
+                    className={`absolute top-0 left-0 w-full backdrop-blur-sm bg-black/40 p-10 rounded-xl shadow-2xl border border-amber-500/30 transition-all duration-700 ease-in-out ${
                       index === currentReview
                         ? "opacity-100 transform translate-y-0"
                         : "opacity-0 transform translate-y-8 pointer-events-none"
                     }`}
                   >
                     <div className="flex flex-col items-center text-center">
-                      <div className="flex mb-4">
+                      <div className="flex mb-6">
                         {[...Array(5)].map((_, i) => (
                           <svg
                             key={i}
-                            className={`w-6 h-6 ${
+                            className={`w-7 h-7 ${
                               i < review.rating
-                                ? "text-yellow-500"
-                                : "text-gray-600"
+                                ? "text-amber-500"
+                                : "text-gray-700"
                             }`}
                             fill="currentColor"
                             viewBox="0 0 20 20"
@@ -258,25 +272,30 @@ function App() {
                           </svg>
                         ))}
                       </div>
-                      <p className="text-gray-300 text-lg italic mb-6">
+                      <p className="text-gray-200 text-xl italic mb-8 leading-relaxed font-light">
                         "{review.comment}"
                       </p>
-                      <h3 className="text-white text-xl font-bold">
-                        {review.name}
-                      </h3>
-                      <p className="text-blue-400">{review.role}</p>
+                      <div className="flex flex-col items-center">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 mb-3 flex items-center justify-center text-black font-bold text-xl">
+                          {review.name.charAt(0)}
+                        </div>
+                        <h3 className="text-white text-xl font-bold">
+                          {review.name}
+                        </h3>
+                        <p className="text-amber-400 mt-1">{review.role}</p>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-3 mt-12">
               {reviews.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentReview(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    index === currentReview ? "bg-blue-500" : "bg-gray-600"
+                  className={`w-12 h-1.5 rounded-full transition-all duration-500 ${
+                    index === currentReview ? "bg-amber-500 w-16" : "bg-gray-600/50"
                   }`}
                   aria-label={`Go to review ${index + 1}`}
                 />
@@ -284,43 +303,51 @@ function App() {
             </div>
           </div>
           <div className="mt-16 text-center">
-            <h3 className="text-white text-xl font-bold mb-4">
-              Share Your Experience
+            <h3 className="text-white text-xl font-bold mb-6">
+              Share Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Premium</span> Experience
             </h3>
-            <button className="bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-bold px-6 py-3 rounded-md">
+            <button 
+              onClick={scrollToContact}
+              className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 transition-all duration-300 text-black font-bold px-8 py-3 rounded-md shadow-lg shadow-amber-700/20">
               Submit Your Feedback
             </button>
           </div>
         </div>
       </div>
-      <div className="w-full min-h-[100vh] flex items-center justify-center bg-gray-950 py-16">
+      <div className="w-full min-h-[100vh] flex items-center justify-center bg-gradient-to-b from-black via-gray-950 to-black py-20">
         <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center">
-          <h2 className="text-white text-3xl font-bold mb-12">
-            Latest from Our Blog
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+          <div className="mb-2">
+            <span className="text-amber-500 text-sm uppercase tracking-widest font-semibold">Insights</span>
+          </div>
+          <h2 className="text-white text-4xl font-bold mb-16 text-center">Latest from Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Journal</span></h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full">
             {blogPosts.map((post, index) => (
               <div
                 key={index}
-                className="bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-blue-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-[1.02]"
+                className="backdrop-blur-sm bg-black/30 rounded-xl overflow-hidden shadow-2xl border border-amber-500/20 hover:border-amber-500/40 transition-all duration-500 transform hover:scale-[1.03] hover:shadow-amber-700/10"
               >
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <p className="text-blue-400 text-sm mb-2">{post.date}</p>
-                  <h3 className="text-white text-xl font-bold mb-3">
+                <div className="relative">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-56 object-cover filter brightness-90"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-24"></div>
+                  <div className="absolute bottom-4 left-4 bg-amber-500/90 text-black text-xs font-bold py-1 px-3 rounded-full">
+                    {post.date}
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-white text-xl font-bold mb-4 leading-tight">
                     {post.title}
                   </h3>
                   <div className="text-gray-300 mb-4">
                     {expandedPostIndex === index ? (
                       <>
-                        <p>{post.fullText}</p>
+                        <p className="leading-relaxed">{post.fullText}</p>
                         <button
                           onClick={() => toggleReadMore(index)}
-                          className="text-blue-400 hover:text-blue-300 font-semibold mt-4 transition-colors duration-300 flex items-center"
+                          className="text-amber-400 hover:text-amber-300 font-semibold mt-6 transition-colors duration-300 flex items-center"
                         >
                           Show Less
                           <svg
@@ -341,10 +368,10 @@ function App() {
                       </>
                     ) : (
                       <>
-                        <p>{post.excerpt}</p>
+                        <p className="leading-relaxed">{post.excerpt}</p>
                         <button
                           onClick={() => toggleReadMore(index)}
-                          className="text-blue-400 hover:text-blue-300 font-semibold mt-2 transition-colors duration-300 flex items-center"
+                          className="text-amber-400 hover:text-amber-300 font-semibold mt-4 transition-colors duration-300 flex items-center"
                         >
                           Read More
                           <svg
@@ -369,27 +396,30 @@ function App() {
               </div>
             ))}
           </div>
-          <div className="mt-12">
-            <button className="bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-bold px-6 py-3 rounded-md">
+          <div className="mt-16">
+            <button className="border border-amber-500/30 hover:border-amber-500/60 bg-black/40 hover:bg-black/60 transition-all duration-300 text-amber-400 font-bold px-8 py-3 rounded-md">
               View All Articles
             </button>
           </div>
         </div>
       </div>
-      <div className="w-full min-h-[80vh] flex items-center justify-center bg-gray-900 py-16">
+      <div ref={contactSectionRef} className="w-full min-h-[100vh] flex items-center justify-center bg-gradient-to-b from-black via-gray-950 to-black pt-12">
         <div className="w-4/5 max-w-[1280px] flex flex-col items-center justify-center">
-          <h2 className="text-white text-3xl font-bold mb-12">Contact Us</h2>
+          <div className="mb-2">
+            <span className="text-amber-500 text-sm uppercase tracking-widest font-semibold">Get in Touch</span>
+          </div>
+          <h2 className="text-white text-4xl font-bold mb-16 text-center">Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Our Team</span></h2>
           <div className="flex flex-col md:flex-row w-full gap-12">
             <div className="w-full md:w-1/2">
               <form
                 onSubmit={handleFormSubmit}
-                className="bg-gray-800 p-8 rounded-lg shadow-lg"
+                className="backdrop-blur-sm bg-black/40 p-10 rounded-xl shadow-2xl border border-amber-500/20"
               >
-                <h3 className="text-white text-xl font-bold mb-6">
+                <h3 className="text-white text-2xl font-bold mb-8">
                   Send Us a Message
                 </h3>
-                <div className="mb-4">
-                  <label htmlFor="name" className="block text-gray-300 mb-2">
+                <div className="mb-6">
+                  <label htmlFor="name" className="block text-amber-400 mb-2 font-medium">
                     Your Name
                   </label>
                   <input
@@ -398,12 +428,12 @@ function App() {
                     name="name"
                     value={contactFormData.name}
                     onChange={handleContactInputChange}
-                    className="w-full bg-gray-700 text-white border border-gray-600 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-black/60 text-white border border-amber-500/30 rounded-lg py-3 px-4 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 transition-all duration-300"
                     required
                   />
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="email" className="block text-gray-300 mb-2">
+                <div className="mb-6">
+                  <label htmlFor="email" className="block text-amber-400 mb-2 font-medium">
                     Your Email
                   </label>
                   <input
@@ -412,12 +442,12 @@ function App() {
                     name="email"
                     value={contactFormData.email}
                     onChange={handleContactInputChange}
-                    className="w-full bg-gray-700 text-white border border-gray-600 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-black/60 text-white border border-amber-500/30 rounded-lg py-3 px-4 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 transition-all duration-300"
                     required
                   />
                 </div>
-                <div className="mb-6">
-                  <label htmlFor="message" className="block text-gray-300 mb-2">
+                <div className="mb-8">
+                  <label htmlFor="message" className="block text-amber-400 mb-2 font-medium">
                     Your Message
                   </label>
                   <textarea
@@ -426,120 +456,126 @@ function App() {
                     value={contactFormData.message}
                     onChange={handleContactInputChange}
                     rows={5}
-                    className="w-full bg-gray-700 text-white border border-gray-600 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-black/60 text-white border border-amber-500/30 rounded-lg py-3 px-4 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 transition-all duration-300"
                     required
                   ></textarea>
                 </div>
                 <button
                   type="submit"
                   disabled={formState.submitting}
-                  className="bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-bold px-6 py-3 rounded-md w-full"
+                  className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 transition-all duration-300 text-black font-bold px-8 py-3 rounded-lg w-full shadow-lg shadow-amber-700/20"
                 >
                   {formState.submitting ? "Sending..." : "Send Message"}
                 </button>
                 {formState.succeeded && (
-                  <p className="text-green-400 mt-4 text-center">
+                  <p className="text-green-400 mt-6 text-center font-medium">
                     Thank you for your message! We'll get back to you soon.
                   </p>
                 )}
                 {formState?.errors && Object.keys(formState.errors).length > 0 && (
-                  <p className="text-red-400 mt-4 text-center">
+                  <p className="text-red-400 mt-6 text-center font-medium">
                     There was an error sending your message. Please try again.
                   </p>
                 )}
               </form>
             </div>
-            <div className="w-full md:w-1/2 flex flex-col justify-center">
-              <div className="bg-gray-800 p-8 rounded-lg shadow-lg mb-8">
-                <h3 className="text-white text-xl font-bold mb-6">
+            <div className="w-full md:w-1/2 flex flex-col justify-center gap-8">
+              <div className="backdrop-blur-sm bg-black/40 p-10 rounded-xl shadow-2xl border border-amber-500/20">
+                <h3 className="text-white text-2xl font-bold mb-8">
                   Contact Information
                 </h3>
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-start gap-4">
-                    <svg
-                      className="w-6 h-6 text-blue-400 mt-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-start gap-6">
+                    <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                      <svg
+                        className="w-6 h-6 text-amber-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    </div>
                     <div>
-                      <h4 className="text-blue-400 font-semibold">Address</h4>
-                      <p className="text-gray-300">
+                      <h4 className="text-amber-400 font-semibold text-lg mb-1">Address</h4>
+                      <p className="text-gray-300 leading-relaxed">
                         123 Innovation Street, Tech Valley, CA 94043
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <svg
-                      className="w-6 h-6 text-blue-400 mt-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
+                  <div className="flex items-start gap-6">
+                    <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                      <svg
+                        className="w-6 h-6 text-amber-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
                     <div>
-                      <h4 className="text-blue-400 font-semibold">Email</h4>
+                      <h4 className="text-amber-400 font-semibold text-lg mb-1">Email</h4>
                       <p className="text-gray-300">contact@true-eye.org</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <svg
-                      className="w-6 h-6 text-blue-400 mt-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
+                  <div className="flex items-start gap-6">
+                    <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                      <svg
+                        className="w-6 h-6 text-amber-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        />
+                      </svg>
+                    </div>
                     <div>
-                      <h4 className="text-blue-400 font-semibold">Phone</h4>
+                      <h4 className="text-amber-400 font-semibold text-lg mb-1">Phone</h4>
                       <p className="text-gray-300">+1 (323) 455-4599</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
-                <h3 className="text-white text-xl font-bold mb-6">
+              <div className="backdrop-blur-sm bg-black/40 p-10 rounded-xl shadow-2xl border border-amber-500/20">
+                <h3 className="text-white text-2xl font-bold mb-8">
                   Business Hours
                 </h3>
-                <div className="flex justify-between text-gray-300 mb-2">
-                  <span>Monday - Friday:</span>
-                  <span>9:00 AM - 6:00 PM</span>
+                <div className="flex justify-between text-gray-300 mb-4 border-b border-amber-500/10 pb-3">
+                  <span className="font-medium">Monday - Friday:</span>
+                  <span className="text-amber-400">9:00 AM - 6:00 PM</span>
                 </div>
-                <div className="flex justify-between text-gray-300 mb-2">
-                  <span>Saturday:</span>
-                  <span>10:00 AM - 4:00 PM</span>
+                <div className="flex justify-between text-gray-300 mb-4 border-b border-amber-500/10 pb-3">
+                  <span className="font-medium">Saturday:</span>
+                  <span className="text-amber-400">10:00 AM - 4:00 PM</span>
                 </div>
                 <div className="flex justify-between text-gray-300">
-                  <span>Sunday:</span>
-                  <span>Closed</span>
+                  <span className="font-medium">Sunday:</span>
+                  <span className="text-amber-400">Closed</span>
                 </div>
               </div>
             </div>
