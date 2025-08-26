@@ -572,7 +572,7 @@ function App() {
                     <div>
                       <h4 className="text-amber-400 font-semibold text-lg mb-1">Address</h4>
                       <p className="text-gray-300 leading-relaxed">
-                        123 Innovation Street, Tech Valley, CA 94043
+                        R. Ouro Fino, 654 - Jardim Catarina, São Gonçalo - RJ, Brazil
                       </p>
                     </div>
                   </div>
